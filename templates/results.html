@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Checker Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="{{ url_for('static', filename='medical_logo.png') }}" alt="Medical Logo" class="logo">
+            <h1>Possible Diseases</h1>
+        </header>
+        {% if diseases %}
+            <ul>
+                {% for disease in diseases %}
+                    <li>{{ disease }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No matching diseases found.</p>
+        {% endif %}
+        <a href="/" class="back-button">Go Back</a>
+    </div>
+</body>
+</html>
