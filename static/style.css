@@ -2,25 +2,21 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-header {
-    text-align: center;
-    margin-bottom: 20px;
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
 }
 
 .logo {
-    width: 100px;
+    width: 50px;
     height: auto;
+    margin-right: 15px;
 }
 
 h1 {
@@ -28,26 +24,61 @@ h1 {
     font-size: 24px;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-label {
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-textarea {
-    padding: 10px;
+.intro {
     margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-frame, .right-frame {
+    width: 48%;
+}
+
+.left-frame h2, .right-frame h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.left-frame select, .left-frame div, .right-frame div {
+    margin-bottom: 20px;
+}
+
+.flashcards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.flashcard {
+    background-color: #e3f2fd;
+    padding: 15px;
+    border-radius: 5px;
+    width: 48%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.flashcard h3 {
+    margin-top: 0;
+}
+
+.submit-form {
+    text-align: center;
+    margin-top: 20px;
 }
 
 button {
-    padding: 10px;
+    padding: 10px 20px;
     background-color: #28a745;
     border: none;
     color: #fff;
@@ -58,10 +89,6 @@ button {
 
 button:hover {
     background-color: #218838;
-}
-
-#results {
-    margin-top: 20px;
 }
 
 a.back-button {

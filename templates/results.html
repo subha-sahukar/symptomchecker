@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Symptom Checker Results</title>
+    <title>MedAssist - Symptom Checker Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='medical_logo.png') }}" alt="Medical Logo" class="logo">
+        <h1>MedAssist - Symptom Checker</h1>
+    </div>
     <div class="container">
-        <header>
-            <img src="{{ url_for('static', filename='medical_logo.png') }}" alt="Medical Logo" class="logo">
-            <h1>Possible Diseases</h1>
-        </header>
+        <h2>Possible Diseases</h2>
         {% if diseases %}
             <ul>
                 {% for disease in diseases %}

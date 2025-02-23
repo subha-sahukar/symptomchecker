@@ -3,20 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Symptom Checker</title>
+    <title>MedAssist - Symptom Checker</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='medical_logo.png') }}" alt="Medical Logo" class="logo">
+        <h1>MedAssist - Symptom Checker</h1>
+    </div>
     <div class="container">
-        <header>
-            <img src="{{ url_for('static', filename='medical_logo.png') }}" alt="Medical Logo" class="logo">
-            <h1>Symptom Checker</h1>
-        </header>
-        <form action="/results" method="post">
-            <label for="symptoms">Enter your symptoms:</label>
-            <textarea id="symptoms" name="symptoms" rows="4" required></textarea>
-            <button type="submit">Get Possible Diseases</button>
+        <div class="intro">
+            <p>Welcome to MedAssist, your reliable companion in identifying possible medical conditions based on your symptoms. Please follow the instructions below to get started.</p>
+        </div>
+        <div class="flex-container">
+            <div class="left-frame">
+                <h2>Select a Body Part</h2>
+                <select id="body_part" name="body_part" required>
+                    <option value="">--Select--</option>
+                    {% for part in body_parts %}
+                        <option value="{{ part }}">{{ part.capitalize() }}</option>
+                    {% endfor %}
+                </select>
+
+                <div id="symptoms_section" style="display: none;">
+                    <h3>Select Your Symptoms</h3>
+                    <div id="symptoms_list"></div>
+                    <p>Please select 3-4 symptoms to find the right diagnosis.</p>
+                </div>
+            </div>
+            <div class="right-frame">
+                <h2>Medical Tips & Flashcards</h2>
+                <div class="flashcards">
+                    <div class="flashcard">
+                        <h3>Tip 1</h3>
+                        <p>Stay hydrated and maintain a balanced diet.</p>
+                    </div>
+                    <div class="flashcard">
+                        <h3>Tip 2</h3>
+                        <p>Exercise regularly to keep your body and mind healthy.</p>
+                    </div>
+                    <div class="flashcard">
+                        <h3>Tip 3</h3>
+                        <p>Get regular check-ups to stay ahead of potential health issues.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form action="/results" method="post" class="submit-form">
+            <button type="submit" id="submit_button" style="display: none;">Get Possible Diseases</button>
         </form>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#body_part').change(function() {
+                const bodyPart = $(this).val();
+                if (bodyPart) {
+                    $.post('/get_symptoms', {body_part: bodyPart}, function(data) {
+                        let symptomsList = '';
+                        data.forEach(symptom => {
+                            symptomsList += `<div><input type="checkbox" name="symptoms" value="${symptom}">${symptom}</div>`;
+                        });
+                        $('#symptoms_list').html(symptomsList);
+                        $('#symptoms_section').show();
+                    });
+                } else {
+                    $('#symptoms_section').hide();
+                    $('#submit_button').hide();
+                }
+            });
+
+            $(document).on('change', 'input[name="symptoms"]', function() {
+                const selectedSymptoms = $('input[name="symptoms"]:checked').length;
+                if (selectedSymptoms >= 3 && selectedSymptoms <= 4) {
+                    $('#submit_button').show();
+                } else {
+                    $('#submit_button').hide();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
